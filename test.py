@@ -10,9 +10,12 @@ Created on Sun Jan 29 13:33:59 2023
 import pathlib
 import numpy as np
 import os, sys
+import matplotlib.pyplot as plt
 
 from MOD021 import *
 from MOD03 import *
+from L1B_Resamp import *
+
 
 
 # infile = sys.argv[1]
@@ -39,5 +42,9 @@ from MOD03 import *
 
 m = MOD021 (sys.argv[1])
 ll = MOD03 (sys.argv[2])
-print (m.minmax)
-print (ll.minmax)
+l1br = L1B_Resamp()
+l1br.set_arrays(m,ll)
+l1br.resamps()
+
+plt.imshow(l1br.outarr)
+plt.show()
