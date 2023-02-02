@@ -17,11 +17,12 @@ class MOD021 :
     minmax =[] ;
     
     def __init__(self, fname):
+        print(fname)
         self.sdfile = SD(fname)
         print (self.sdfile.info())
         datasets_dic = self.sdfile.datasets() 
-        for idx, sds in enumerate(datasets_dic.keys()):
-            print(idx, sds)
+        # for idx, sds in enumerate(datasets_dic.keys()):
+        #     print(idx, sds)
         self.read_thermal()
         self.load_minmax()
         
@@ -38,11 +39,11 @@ class MOD021 :
             # get calibration values
             scales = atts['radiance_scales']
             offs = atts['radiance_offsets']
-            print(scales)
+            #print(scales)
             b22 = band_1k[ib,:,:]
             #apply calibration
             band22 = (b22-offs[ib]) * scales[ib] 
-            print(np.max(band22))
+            #print(np.max(band22))
         
             self.bands.append(band22)
         self.thermalarr = np.array([self.bands[0],self.bands[1],self.bands[2]])

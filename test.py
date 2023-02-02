@@ -39,12 +39,28 @@ from L1B_Resamp import *
 # print(b22.shape)
 # band22 = (b22+offs[2]) * scales[2] 
 # print(np.max(band22))
+fpairs=[]
 
-m = MOD021 (sys.argv[1])
-ll = MOD03 (sys.argv[2])
-l1br = L1B_Resamp()
-l1br.set_arrays(m,ll)
-l1br.resamps()
-
-plt.imshow(l1br.outarr)
-plt.show()
+indir = '/Users/hg/workdir/data/'
+# get pairs of MOD21 MOD03 files
+lfiles=os.listdir(indir)
+for f in lfiles :
+    if 'MOD021KM' in f :
+        indx = f.find('A2022')
+        srch_string = f[indx:indx+12]
+        for f03 in lfiles :
+            if 'MOD03' in f03 and srch_string in f03 :
+                fpairs.append((indir+f,indir+f03))
+for p in fpairs:
+    print(p)
+    #print (p[0])
+                
+    m = MOD021 (p[0].strip())
+    ll = MOD03 (p[1].strip())
+    l1br = L1B_Resamp()
+    l1br.set_arrays(m,ll)
+    l1br.resamps()
+    
+    plt.imshow(m.thermalarr[2,:,:],cmap='gray')
+    #plt.imshow(l1br.outarr,cmap='gray')
+    plt.show()

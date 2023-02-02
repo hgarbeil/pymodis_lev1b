@@ -14,21 +14,22 @@ import numpy as np
 class L1B_Resamp :
     ThermFile=None 
     GeoFile=None
-    llbounds=[20.5, -156.3, 18.75, -154.6]
-    llspace = .0068
+    llbounds=[22.5, -160.3, 18.75, -154.6]
+    llspace = .01
     outarr = None
     
     def __init__(self):
         self.ns = int((self.llbounds[3] - self.llbounds[1])/self.llspace+1)
         self.nl = int((self.llbounds[0] - self.llbounds[2])/self.llspace+1)
         print (self.nl, self.ns)
-        self.outarr = np.zeros((self.nl,self.ns),dtype=np.float32)
+        self.outarr = np.zeros((self.nl,self.ns),dtype=np.float32)+5.
         
         
     def set_arrays (self, m21, m3):
         self.thermbands = m21.thermalarr
         self.geobands = m3.geobands
         print (self.thermbands.shape)
+        
         
     def resamps (self) :
         shape_raw = self.thermbands.shape
@@ -42,6 +43,6 @@ class L1B_Resamp :
                     continue 
                 if xloc < 0 or xloc >= self.ns :
                     continue 
-                self.outarr[yloc,xloc]= self.thermbands[1,yloc,xloc]
+                self.outarr[yloc,xloc]= self.thermbands[2,yloc,xloc]
                 
         

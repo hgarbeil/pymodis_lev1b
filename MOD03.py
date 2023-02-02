@@ -21,8 +21,8 @@ class MOD03 :
         self.sdfile = SD(fname)
         print (self.sdfile.info())
         datasets_dic = self.sdfile.datasets() 
-        for idx, sds in enumerate(datasets_dic.keys()) :
-            print(idx,sds)
+        # for idx, sds in enumerate(datasets_dic.keys()) :
+        #     print(idx,sds)
         self.geobands=np.array([self.sdfile.select('Latitude'),self.sdfile.select('Longitude'),self.sdfile.select('SensorZenith')])
         print(self.geobands.shape)
         self.load_minmax()
