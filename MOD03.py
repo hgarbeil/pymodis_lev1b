@@ -19,7 +19,8 @@ class MOD03 :
     
     def __init__(self, fname):
         self.sdfile = SD(fname)
-        print (self.sdfile.info())
+        print(fname)
+        #print (self.sdfile.info())
         datasets_dic = self.sdfile.datasets() 
         # for idx, sds in enumerate(datasets_dic.keys()) :
         #     print(idx,sds)
@@ -30,7 +31,12 @@ class MOD03 :
     def load_minmax (self):
          min =0
          max =0
+         
+         self.minmax.clear()
          for i in range (3):
              min=np.min(self.geobands[i])
              max=np.max(self.geobands[i])
-             self.minmax.append((min,max))
+             self.minmax.append((min,max))            
+         print ('Raw MODIS File : ')
+         print ('Latitude range ', self.minmax[0])
+         print ('Longitude range ', self.minmax[1])
